@@ -8,7 +8,6 @@
 # Secure your Attack Surface with FullHunt.io.
 # ******************************************************************
 
-import time
 import argparse
 import random
 import requests
@@ -326,6 +325,7 @@ def scan_url(url, callback_host):
         time.sleep(int(args.sleep))
         if args.request_type.upper() == "GET" or args.run_all_tests:
             try:
+                time.sleep(int(args.sleep))
                 requests.request(url=url,
                                  method="GET",
                                  params={"v": payload},
@@ -339,6 +339,7 @@ def scan_url(url, callback_host):
 
         if args.request_type.upper() == "POST" or args.run_all_tests:
             try:
+                time.sleep(int(args.sleep))
                 # Post body
                 requests.request(url=url,
                                  method="POST",
@@ -354,6 +355,7 @@ def scan_url(url, callback_host):
 
             try:
                 # JSON body
+                time.sleep(int(args.sleep))
                 requests.request(url=url,
                                  method="POST",
                                  params={"v": payload},
