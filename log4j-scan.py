@@ -8,6 +8,7 @@
 # Secure your Attack Surface with FullHunt.io.
 # ******************************************************************
 
+import time
 import argparse
 import random
 import requests
@@ -122,6 +123,12 @@ parser.add_argument("--waf-bypass",
                     dest="waf_bypass_payloads",
                     help="Extend scans with WAF bypass payloads.",
                     action='store_true')
+parser.add_argument("--sleep",
+                    dest="sleep",
+                    help="Wait time between requests - [Default: 0].",
+                    default=0,
+                    type=int,
+                    action='store')
 parser.add_argument("--custom-waf-bypass-payload",
                     dest="custom_waf_bypass_payload",
                     help="Test with custom WAF bypass payload.")
@@ -316,7 +323,7 @@ def scan_url(url, callback_host):
 
     for payload in payloads:
         cprint(f"[•] URL: {url} | PAYLOAD: {payload}", "cyan")
-
+        time.sleep(int(args.sleep))
         if args.request_type.upper() == "GET" or args.run_all_tests:
             try:
                 requests.request(url=url,
